@@ -13,14 +13,13 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void createUsersTable() {
-        String sql = "CREATE TABLE IF NOT EXISTS predprod114.users (\n" +
-                "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
-                "  `name` VARCHAR(45) NOT NULL,\n" +
-                "  `lastName` VARCHAR(45) NOT NULL,\n" +
-                "  `age` INT NOT NULL,\n" +
-                "  PRIMARY KEY (`id`));";
-
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
+            String sql = "CREATE TABLE IF NOT EXISTS predprod114.users (\n" +
+                    "  `id` INT NOT NULL AUTO_INCREMENT,\n" +
+                    "  `name` VARCHAR(45) NOT NULL,\n" +
+                    "  `lastName` VARCHAR(45) NOT NULL,\n" +
+                    "  `age` INT NOT NULL,\n" +
+                    "  PRIMARY KEY (`id`));";
             session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             session.getTransaction().commit();
@@ -29,9 +28,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void dropUsersTable() {
-        String sql = "DROP TABLE IF EXISTS predprod114.users";
-
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
+            String sql = "DROP TABLE IF EXISTS predprod114.users";
             session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             session.getTransaction().commit();
@@ -60,10 +58,10 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public List<User> getAllUsers() {
-        String sql = "SELECT * FROM predprod114.users";
         List<User> userList;
 
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
+            String sql = "SELECT * FROM predprod114.users";
             session.beginTransaction();
             userList = session.createNativeQuery(sql, User.class).getResultList();
             session.getTransaction().commit();
@@ -73,8 +71,8 @@ public class UserDaoHibernateImpl implements UserDao {
 
     @Override
     public void cleanUsersTable() {
-        String sql = "TRUNCATE TABLE predprod114.users";
         try (Session session = Util.getSessionFactory().getCurrentSession()) {
+            String sql = "TRUNCATE TABLE predprod114.users";
             session.beginTransaction();
             session.createSQLQuery(sql).executeUpdate();
             session.getTransaction().commit();
